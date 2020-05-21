@@ -39,20 +39,10 @@ public class Tracker {
                 index++;
             }
         }
-        items = Arrays.copyOf(items, index);
-        return items;
+        return Arrays.copyOf(items, index);
     }
 
     public Item[] findAll() {
-        Item[] items = new Item[this.size];
-        int index = 0;
-        for (int i = 0; i < this.size; i++) {
-            if (this.items[i] != null) {
-                items[index] = this.items[i];
-                index++;
-            }
-        }
-        items = Arrays.copyOf(items, index);
-        return items;
+        return Arrays.copyOf(this.items, this.size);
     }
 }
