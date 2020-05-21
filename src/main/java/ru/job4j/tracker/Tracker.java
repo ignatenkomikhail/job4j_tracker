@@ -54,4 +54,12 @@ public class Tracker {
         item.setId(id);
         this.items[indexOf(id)] = item;
     }
+
+    public void delete(String id) {
+        int index = indexOf(id);
+        this.items[index] = null;
+        System.arraycopy(this.items, index + 1, this.items, index, this.size - index - 1);
+        this.items[this.size - 1] = null;
+        this.size -= 1;
+    }
 }
