@@ -18,16 +18,20 @@ public class Tracker {
         return String.valueOf(rnd.nextLong() + System.currentTimeMillis());
     }
 
-    public Item findById(String id) {
-        Item rsl = null;
-        for (int index = 0; index < this.size; index++) {
-            Item item = this.items[index];
-            if (item.getId().equals(id)) {
-                rsl = item;
+    private int indexOf(String id) {
+        int rsl = -1;
+        for (int i = 0; i < this.size; i++) {
+            if(this.items[i].getId().equals(id)) {
+                rsl = i;
                 break;
             }
         }
         return rsl;
+    }
+
+    public Item findById(String id) {
+        int index = indexOf(id);
+        return index != -1 ? this.items[index] : null;
     }
 
     public Item[] findByName(String key) {
@@ -44,5 +48,10 @@ public class Tracker {
 
     public Item[] findAll() {
         return Arrays.copyOf(this.items, this.size);
+    }
+
+    public void replace(String id, Item item) {
+        item.setId(id);
+        this.items[indexOf(id)] = item;
     }
 }
