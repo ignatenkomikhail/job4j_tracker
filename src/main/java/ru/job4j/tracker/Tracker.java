@@ -50,9 +50,15 @@ public class Tracker {
         return Arrays.copyOf(this.items, this.size);
     }
 
-    public void replace(String id, Item item) {
-        item.setId(id);
-        this.items[indexOf(id)] = item;
+    public boolean replace(String id, Item item) {
+        boolean result = false;
+        int index = indexOf(id);
+        if (index != -1) {
+            item.setId(id);
+            this.items[index] = item;
+            result = true;
+        }
+        return result;
     }
 
     public void delete(String id) {
