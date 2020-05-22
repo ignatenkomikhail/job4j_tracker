@@ -61,11 +61,15 @@ public class Tracker {
         return result;
     }
 
-    public void delete(String id) {
+    public boolean delete(String id) {
+        boolean result = false;
         int index = indexOf(id);
-        this.items[index] = null;
-        System.arraycopy(this.items, index + 1, this.items, index, this.size - index - 1);
-        this.items[this.size - 1] = null;
-        this.size -= 1;
+        if (index != -1) {
+            System.arraycopy(this.items, index + 1, this.items, index, this.size - index - 1);
+            this.size -= 1;
+            this.items[this.size] = null;
+            result = true;
+        }
+        return result;
     }
 }
