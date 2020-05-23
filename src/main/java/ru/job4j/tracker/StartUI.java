@@ -21,7 +21,7 @@ public class StartUI {
                 Item[] items = tracker.findAll();
                 if (items.length != 0) {
                     for (int i = 0; i < items.length; i++) {
-                        System.out.println(i + 1  + ". name: " + items[i].getName() + ", id: " + items[i].getId());
+                        System.out.println(items[i]);
                     }
                 } else {
                     System.out.println("Items not found\n");
@@ -52,7 +52,7 @@ public class StartUI {
                 String id = scanner.nextLine();
                 Item item = tracker.findById(id);
                 if (item != null) {
-                    System.out.println("Name: " + item.getName() + ", id: " + item.getId());
+                    System.out.println(item);
                 } else {
                     System.out.printf("Not found item with id: %s\n", id);
                 }
@@ -63,7 +63,7 @@ public class StartUI {
                 Item[] items = tracker.findByName(name);
                 if (items != null) {
                     for (int i = 0; i < items.length; i++) {
-                        System.out.println(i + 1  + ". name: " + items[i].getName() + ", id: " + items[i].getId());
+                        System.out.println(items[i]);
                     }
                 } else {
                     System.out.printf("Not found item with name: %s\n", name);
