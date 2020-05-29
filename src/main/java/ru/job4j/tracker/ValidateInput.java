@@ -1,14 +1,15 @@
 package ru.job4j.tracker;
 
-import java.util.Scanner;
-
 public class ValidateInput implements Input {
-    private final Scanner scanner = new Scanner(System.in);
+    private final Input input;
+
+    public ValidateInput(Input input) {
+        this.input = input;
+    }
 
     @Override
     public String askStr(String question) {
-        System.out.print(question);
-        return scanner.nextLine();
+        return input.askStr(question);
     }
     @Override
     public int askInt(String question) {
