@@ -4,6 +4,8 @@ import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.StringJoiner;
 
 import static org.hamcrest.core.Is.is;
@@ -17,7 +19,7 @@ public class StartUITest {
         Input input = new StubInput(answers);
         Tracker tracker = new Tracker();
         StartUI.createItem(input, tracker);
-        Item created = tracker.findAll()[0];
+        Item created = tracker.findAll().get(0);
         Item expected = new Item("Fix PC");
         assertThat(created.getName(), is(expected.getName()));
     }
@@ -43,8 +45,10 @@ public class StartUITest {
     @Test
     public void whenStartUIInit1() {
         StubInput input = new StubInput(new String[]{"0"});
+        List<UserAction> actions = new ArrayList<>();
         StubAction action = new StubAction();
-        new StartUI().init(input, new Tracker(), new UserAction[]{action});
+        actions.add(action);
+        new StartUI().init(input, new Tracker(), actions);
         assertThat(action.isCall(), is(true));
     }
     @Test
@@ -52,8 +56,10 @@ public class StartUITest {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         PrintStream standart = System.out;
         System.setOut(new PrintStream(out));
+        List<UserAction> actions = new ArrayList<>();
         StubAction action = new StubAction();
-        new StartUI().init(new StubInput(new String[]{"0"}), new Tracker(), new UserAction[]{action});
+        actions.add(action);
+        new StartUI().init(new StubInput(new String[]{"0"}), new Tracker(), actions);
         String expected = new StringJoiner(System.lineSeparator(), "", System.lineSeparator())
                 .add("\n---------Menu---------")
                 .add("0. Stub action")
