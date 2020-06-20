@@ -2,40 +2,35 @@ package ru.job4j.lambda;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.BiFunction;
+import java.util.function.Predicate;
 
 public class SearchAtt {
 
-    private static List<Attachment> filter(List<Attachment> attachments,
-            BiFunction<Attachment, List<Attachment>, List<Attachment>> func) {
+    private static List<Attachment> filter(List<Attachment> attachments, Predicate<Attachment> func) {
         List<Attachment> rsl = new ArrayList<>();
         for (Attachment att : attachments) {
-            rsl = func.apply(att, rsl);
+            if (func.test(att)) {
+                rsl.add(att);
+            }
         }
         return rsl;
     }
 
     public static List<Attachment> filterSize(List<Attachment> attachments) {
-        BiFunction<Attachment, List<Attachment>, List<Attachment>> func = new BiFunction<>() {
+        Predicate<Attachment> func = new Predicate<>() {
             @Override
-            public List<Attachment> apply(Attachment att, List<Attachment> rsl) {
-                if (att.getSize() > 100) {
-                    rsl.add(att);
-                }
-                return rsl;
+            public boolean test(Attachment att) {
+                return att.getSize() > 100;
             }
         };
         return filter(attachments, func);
     }
 
     public static List<Attachment> filterName(List<Attachment> attachments) {
-        BiFunction<Attachment, List<Attachment>, List<Attachment>> func = new BiFunction<>() {
+        Predicate<Attachment> func = new Predicate<>() {
             @Override
-            public List<Attachment> apply(Attachment att, List<Attachment> rsl) {
-                if (att.getName().contains("bug")) {
-                    rsl.add(att);
-                }
-                return rsl;
+            public boolean test(Attachment att) {
+                return att.getName().contains("bug");
             }
         };
         return filter(attachments, func);
